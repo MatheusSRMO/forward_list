@@ -74,3 +74,9 @@ void forward_list_destroy(ForwardList* l) {
     }
     free(l);
 }
+
+// remove todos os nós da lista
+void forward_list_clear(ForwardList* l) {
+    forward_list_destroy(l);
+    l = forward_list_construct();
+}

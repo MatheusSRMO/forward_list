@@ -80,3 +80,24 @@ void forward_list_clear(ForwardList* l) {
     forward_list_destroy(l);
     l = forward_list_construct();
 }
+
+// remove todas as ocorrências de um valor da lista
+void forward_list_remove(ForwardList *l, data_type val) {
+    Node *np = l->head;
+    Node *prev = NULL;
+    while (np != NULL) {
+        if (np->value == val) {
+            if (prev == NULL) {
+                l->head = np->next;
+            } else {
+                prev->next = np->next;
+            }
+            free(np);
+            l->size--;
+            np = prev;
+        }
+        prev = np;
+        np = np->next;
+    }
+}
+

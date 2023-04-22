@@ -101,3 +101,15 @@ void forward_list_remove(ForwardList *l, data_type val) {
     }
 }
 
+// remove valores duplicados de uma lista ordenada
+void forward_list_unique(ForwardList* l) {
+    Node *np = l->head;
+    data_type *last = malloc(sizeof(data_type));
+
+    while (np != NULL) {
+
+        if()
+
+        np = np->next;
+    }
+}

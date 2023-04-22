@@ -105,10 +105,16 @@ void forward_list_remove(ForwardList *l, data_type val) {
 void forward_list_unique(ForwardList* l) {
     Node *np = l->head;
     data_type *last = malloc(sizeof(data_type));
+    int size = 0;
 
     while (np != NULL) {
 
-        if()
+        for(int i = 0; i < size; i++) {
+            if (np->value == last[i]) {
+                forward_list_remove(l, np->value);
+                np = np->next;
+            }
+        }
 
         np = np->next;
     }

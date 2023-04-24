@@ -15,23 +15,27 @@ int main()
     ForwardList *l = forward_list_construct();
 
     scanf("%d", &n);
-
     for (int i = 0; i < n; i++)
     {
         scanf("%d", &val);
         forward_list_push_front(l, val);
     }
 
-    scanf("%d", &n);
+    ForwardList *l2 = forward_list_construct();
 
+    scanf("%d", &n);
     for (int i = 0; i < n; i++)
     {
         scanf("%d", &val);
-        forward_list_remove(l, val);
+        forward_list_push_front(l2, val);
     }
 
+    forward_list_cat(l, l2);
+
     forward_list_print(l, print_int);
+
     forward_list_destroy(l);
+    forward_list_destroy(l2);
 
     return 0;
 }

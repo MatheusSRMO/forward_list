@@ -84,20 +84,23 @@ void forward_list_clear(ForwardList* l) {
 // remove todas as ocorrências de um valor da lista
 void forward_list_remove(ForwardList *l, data_type val) {
     Node *np = l->head;
-    Node *prev = NULL;
+    Node *aux = NULL;
     while (np != NULL) {
         if (np->value == val) {
-            if (prev == NULL) {
+            if (aux == NULL) {
                 l->head = np->next;
+                free(np);
+                np = l->head;
             } else {
-                prev->next = np->next;
+                aux->next = np->next;
+                free(np);
+                np = aux->next;
             }
-            free(np);
             l->size--;
-            np = prev;
+        } else {
+            aux = np;
+            np = np->next;
         }
-        prev = np;
-        np = np->next;
     }
 }
 
@@ -108,14 +111,17 @@ void forward_list_unique(ForwardList* l) {
     int size = 0;
 
     while (np != NULL) {
-
+        int flag = 0;
         for(int i = 0; i < size; i++) {
             if (np->value == last[i]) {
-                forward_list_remove(l, np->value);
-                np = np->next;
+                
             }
         }
-
+        if(flag == 0) {
+            last[size] = np->value;
+            size++;
+            np = np->next;
+        }
         np = np->next;
     }
 }

@@ -104,23 +104,45 @@ void forward_list_remove(ForwardList *l, data_type val) {
     }
 }
 
-// remove valores duplicados de uma lista ordenada
+// adiciona os itens da lista m no início da lista l
+void forward_list_cat(ForwardList* l, ForwardList* m) {
+    Node *np = m->head;
+    while (np != NULL) {
+        forward_list_push_front(l, np->value);
+        np = np->next;
+    }
+}
+
+// remove duplicate values in forwartd list
 void forward_list_unique(ForwardList* l) {
     Node *np = l->head;
-    data_type *last = malloc(sizeof(data_type));
-    int size = 0;
-
     while (np != NULL) {
-        int flag = 0;
-        for(int i = 0; i < size; i++) {
-            if (np->value == last[i]) {
-                
+        Node *aux = np;
+        while (aux->next != NULL) {
+            if (aux->next->value == np->value) {
+                Node *aux2 = aux->next;
+                aux->next = aux->next->next;
+                free(aux2);
+                l->size--;
+            } else {
+                aux = aux->next;
             }
         }
-        if(flag == 0) {
-            last[size] = np->value;
-            size++;
-            np = np->next;
+        np = np->next;
+    }
+}
+
+void forward_list_sort(ForwardList *l) {
+    Node *np = l->head;
+    while (np != NULL) {
+        Node *aux = np;
+        while (aux->next != NULL) {
+            if (aux->next->value < np->value) {
+                data_type value = aux->next->value;
+                aux->next->value = np->value;
+                np->value = value;
+            }
+            aux = aux->next;
         }
         np = np->next;
     }

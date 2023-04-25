@@ -4,8 +4,7 @@
 
 typedef int data_type;
 
-typedef struct Node
-{
+typedef struct Node {
     data_type value;
     struct Node *next;
 } Node;

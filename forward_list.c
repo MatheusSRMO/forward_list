@@ -50,7 +50,7 @@ data_type forward_list_pop_front(ForwardList* l) {
     Node *np = l->head;
     data_type value = np->value;
     l->head = l->head->next;
-    free(np);
+    node_destroy(np);
     return value;
 }
 
@@ -70,7 +70,7 @@ void forward_list_destroy(ForwardList* l) {
     while (np != NULL) {
         Node *aux = np;
         np = np->next;
-        free(aux);
+        node_destroy(aux);
     }
     free(l);
 }
@@ -89,11 +89,11 @@ void forward_list_remove(ForwardList *l, data_type val) {
         if (np->value == val) {
             if (aux == NULL) {
                 l->head = np->next;
-                free(np);
+                node_destroy(np);
                 np = l->head;
             } else {
                 aux->next = np->next;
-                free(np);
+                node_destroy(np);
                 np = aux->next;
             }
             l->size--;
@@ -122,7 +122,7 @@ void forward_list_unique(ForwardList* l) {
             if (aux->next->value == np->value) {
                 Node *aux2 = aux->next;
                 aux->next = aux->next->next;
-                free(aux2);
+                node_destroy(aux2);
                 l->size--;
             } else {
                 aux = aux->next;
